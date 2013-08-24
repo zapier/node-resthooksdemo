@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%- title %></title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href='/styles/bootstrap.min.css' rel='stylesheet'/>
+  </head>
+
+  <body>
+     <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Contactly</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/contact/list">Home</a></li>
+            <li><a href="/contact/create">New</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="starter-template" style="padding-top:60px;">
+
+        <%- body %>
+      </div>
+    </div>
+  
+
+    <!-- A few key dependencies, linked in order -->
+
+    <!-- Bring in the socket.io client -->
+    <script type="text/javascript" src="/js/socket.io.js"></script>
+    
+    <!-- then beef it up with some convenience logic for talking to Sails.js -->
+    <script type="text/javascript" src="/js/sails.io.js"></script>
+
+    <!-- listen on socket.io for incoming messages -->
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    </body>
+</html>

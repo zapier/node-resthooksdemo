@@ -1,0 +1,15 @@
+<form class="form-horizontal" role="form" method="post">
+  <% _.each(fields, function(field) { %>
+    <div class="form-group">
+      <label for="input<%= field[0] %>" class="col-lg-2 control-label"><%= capitalize(field[0]) %></label>
+      <div class="col-lg-10">
+        <input type="text" name="<%= field[0] %>" class="form-control" id="input_<%= field[0] %>" placeholder="<%= field[1].defaultsTo %>">
+      </div>
+    </div>
+  <% }) %>
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <button type="submit" class="btn btn-default">Create Contact</button>
+    </div>
+  </div>
+</form>
