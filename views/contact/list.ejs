@@ -3,17 +3,25 @@
   
   <table class="table table-striped">
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Name</th>
       <th>Phone Number</th>
       <th>Email</th>
+      <th> </th>
     </tr>
     <% _.each(contacts, function (contact) { %>
       <tr>
-        <td><%= contact.firstName %></td>
-        <td><%= contact.lastName %></td>
+        <td>
+          <a href="/contact/edit/<%= contact.id %>">
+            <%= contact.firstName %> <%= contact.lastName %></td>
+          </a>
         <td><%= contact.phoneNumber %></td>
         <td><%= contact.emailAddress %></td>
+        <td>
+          <form method="post" action="/contact/<%= contact.id %>">
+            <input type="hidden" name="_method" value="delete"/>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
       </tr>
     <% }) %>
   </table>

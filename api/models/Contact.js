@@ -1,5 +1,5 @@
 var SubscriptionNotifier = require('./../services/SubscriptionNotifier');
-
+var _ = require('underscore');
 /**
  * Contact
  *
@@ -40,9 +40,9 @@ module.exports = {
     next(null, item);
     SubscriptionNotifier.notify('contact.update', item);
   },
-  afterDestroy: function(item, next) {
-    next(null, item);
-    SubscriptionNotifier.notify('contact.delete', item);
+  afterDestroy: function(next) {
+    next();
+    SubscriptionNotifier.notify('contact.delete', {});
   }
 
 };

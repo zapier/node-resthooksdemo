@@ -8,6 +8,7 @@ _ = require('underscore')
  * @description	:: Contains logic for handling requests.
  */
 
+
 module.exports = {
 
   /* e.g.
@@ -20,23 +21,11 @@ module.exports = {
    * /contact/create
    */ 
   create: function (req,res) {
-    var viewDetails = {
-      fields: _.pairs(Contact.attributes),
-      capitalize: function(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-      }
-    };
-
     if (req.method =='POST') {
       Contact.create(req.body).done(function(err, contact) {
-        res.status(204);
+        res.status(201);
         viewDetails['contact'] = contact.toJSON();
-        console.log(req.accepts('text/html'));
-        if (req.accepts('text/html')) {
-          res.redirect('/');
-        } else {
-          res.view(viewDetails);
-        }
+        redirectIfWebRequest(req, res);
       });
     } else {
       res.view(viewDetails);
@@ -59,7 +48,13 @@ module.exports = {
    * /contact/destroy
    */ 
   destroy: function (req,res) {
-    res.view();
+    // in reality we'd use more care here. 
+    Contact.findOne(req.param('id')).done(function(err, contact){
+      contact.destroy(function(){
+        res.status(204);
+        redirectIfWebRequest(req, res);
+      });
+    });
 
   },
 
@@ -68,9 +63,40 @@ module.exports = {
    * /contact/edit
    */ 
   edit: function (req,res) {
-    res.view();
+    Contact.findOne(req.param('id')).done(function(err, contact) {
+      if (req.method =='POST') {
+        _.pairs(req.body).forEach(function(pair) {
+          var key = pair[0], value = pair[1];
+          if(key != 'id') {
+            contact[key] = value;
+          }
+        });
 
+        contact.save(function(err) {
+          redirectIfWebRequest(req, res);
+        });
+
+      } else {
+        viewDetails.contact = contact
+        res.view(viewDetails);
+      }
+    });
   }
 
 };
 
+// some utilities that probably don't belong here
+var viewDetails = {
+  fields: _.pairs(Contact.attributes),
+  capitalize: function(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+};
+
+function redirectIfWebRequest(req, res) {
+  if (req.accepts('text/html')) {
+    res.redirect('/');
+  } else {
+    res.view(viewDetails);
+  }
+}
