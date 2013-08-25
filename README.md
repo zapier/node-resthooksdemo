@@ -10,6 +10,8 @@ the latest startup to attempt to corner the CRM market and a client
 application (client_app.js) that represents some application hosted
 somewhere else on the internets that someone wants to use to extend the
 Contactly application. 
+
+![Contactly](http://i.imgur.com/KCvjSm8.png)
  
 ## Running It
 Running it assumes that you have node.js 0.10 or above instaled. 
