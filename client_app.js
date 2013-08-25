@@ -8,6 +8,7 @@ var http = require('http')
   , request = require('request');
 
 var app = express()
+  , ACTIONS = ['create', 'update', 'delete']
   , subscriptions = [];
 
 // all environments
@@ -18,28 +19,26 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.errorHandler());
 
-var handler = function(type) {
-  return function(req, res) {
-    console.log(type);
-    console.log(req.body);
-  }
-};
 
-app.post('/create', handler("create"));
-app.post('/update', handler("update"));
-app.post('/delete', handler("delete"));
-app.get('/remove-subscriptions', function() {
+ACTIONS.forEach(function(action) {
+  app.post('/' + action, function(req, res) {
+    console.log(action);
+    console.log(req.body);
+    res.send(200);
+  });
+});
+
+app.get('/remove-subscriptions', function(req, res) {
   subscriptions.forEach(function(sub) {
     console.log('deleting subscription ' + sub);
     request.del('http://localhost:1337/subscription/'+sub)
+    res.send(204);
   });
 });
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-  create_subscription('contact.create');
-  create_subscription('contact.update');
-  create_subscription('contact.delete');
+  ACTIONS.forEach(function(action) { create_subscription('contact.' + action); });
 });
 
 

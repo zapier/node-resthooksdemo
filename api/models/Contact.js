@@ -1,5 +1,4 @@
-var SubscriptionNotifier = require('./../services/SubscriptionNotifier');
-var _ = require('underscore');
+var hooks = require('./../services/SubscriptionNotifier');
 /**
  * Contact
  *
@@ -8,8 +7,8 @@ var _ = require('underscore');
  *
  */
 
-module.exports = {
 
+var Contact = {
   attributes: {
     firstName: {
       type: 'STRING',
@@ -28,21 +27,8 @@ module.exports = {
       required: true,
       defaultsTo: 'thedude@example.com'
     },
-  },
-
-  
-  // lifecycle callbacks
-  afterCreate: function(item, next) {
-    next(null, item);
-    SubscriptionNotifier.notify('contact.create', item);
-  },
-  afterUpdate: function(item, next) {
-    next(null, item);
-    SubscriptionNotifier.notify('contact.update', item);
-  },
-  afterDestroy: function(next) {
-    next();
-    SubscriptionNotifier.notify('contact.delete', {});
   }
-
 };
+
+hooks.decorate(Contact);
+module.exports = Contact;

@@ -1,6 +1,6 @@
 var request = require('request')
 
-module.exports = {
+var SubscriptionNotifier = {
   notify: function(event, item, next) {
     var Subscription = sails.models.subscription;
     Subscription.find({event:event}).done(function(err, subscriptions) {
@@ -14,5 +14,24 @@ module.exports = {
         })
       });
     });
+  },
+
+  decorate: function(model) {
+    model.afterCreate = function(item, next) {
+      next(null, item);
+      SubscriptionNotifier.notify('contact.create', item);
+    };
+
+    model.afterUpdate = function(item, next) {
+      next(null, item);
+      SubscriptionNotifier.notify('contact.update', item);
+    }
+
+    model.afterDestroy = function(next) {
+      next();
+      SubscriptionNotifier.notify('contact.delete', {});
+    }
   }
-}
+};
+
+module.exports = SubscriptionNotifier;
