@@ -42,21 +42,21 @@ three subscriptions have been created (for create, update and delete).
 $ curl -L http://localhost:1337/subscription                                                                                                          [17:23:52]
 [
   {
-    "url": "http://localhost:3000/create",
+    "target": "http://localhost:3000/create",
     "event": "contact.create",
     "createdAt": "2013-08-25T00:23:51.900Z",
     "updatedAt": "2013-08-25T00:23:51.900Z",
     "id": 1
   },
   {
-    "url": "http://localhost:3000/update",
+    "target": "http://localhost:3000/update",
     "event": "contact.update",
     "createdAt": "2013-08-25T00:23:51.904Z",
     "updatedAt": "2013-08-25T00:23:51.904Z",
     "id": 2
   },
   {
-    "url": "http://localhost:3000/delete",
+    "target": "http://localhost:3000/delete",
     "event": "contact.delete",
     "createdAt": "2013-08-25T00:23:51.906Z",
     "updatedAt": "2013-08-25T00:23:51.906Z",

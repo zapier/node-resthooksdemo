@@ -48,7 +48,7 @@ function create_subscription(event) {
   request.post({
     url: 'http://localhost:1337/subscription',
     json: {
-      url: 'http://localhost:'+app.get('port')+'/'+parts[1],
+      target: 'http://localhost:'+app.get('port')+'/'+parts[1],
       event: event
     }
   }, function(err, result, json) {

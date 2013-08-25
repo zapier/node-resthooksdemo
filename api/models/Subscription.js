@@ -9,7 +9,7 @@
 module.exports = {
 
   attributes: {
-    url: 'string',
+    target: 'string',
     event: 'string'
   }
 

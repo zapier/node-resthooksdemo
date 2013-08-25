@@ -6,10 +6,10 @@ module.exports = {
     Subscription.find({event:event}).done(function(err, subscriptions) {
       subscriptions.forEach(function(s) {
         request.post({
-          url: s.url,
+          url: s.target,
           json: item
         }, function(err, result, json){
-          console.log("SENT " + event + " TO " + s.url);
+          console.log("SENT " + event + " TO " + s.target);
           if (next) next(err, json);
         })
       });
