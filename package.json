@@ -9,7 +9,9 @@
         "sails-disk": "~0.9.0",
         "ejs": "0.8.4",
         "optimist": "0.3.4",
-        "underscore": "*"
+        "underscore": "*",
+        "request": "*",
+        "express": "*"
     },
     "scripts": {
         "start": "node app.js",

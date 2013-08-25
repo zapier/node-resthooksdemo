@@ -1,3 +1,5 @@
+var SubscriptionNotifier = require('./../services/SubscriptionNotifier');
+
 /**
  * Contact
  *
@@ -26,6 +28,21 @@ module.exports = {
       required: true,
       defaultsTo: 'thedude@example.com'
     },
+  },
+
+  
+  // lifecycle callbacks
+  afterCreate: function(item, next) {
+    next(null, item);
+    SubscriptionNotifier.notify('contact.create', item);
+  },
+  afterUpdate: function(item, next) {
+    next(null, item);
+    SubscriptionNotifier.notify('contact.update', item);
+  },
+  afterDestroy: function(item, next) {
+    next(null, item);
+    SubscriptionNotifier.notify('contact.delete', item);
   }
 
 };

@@ -20,17 +20,26 @@ module.exports = {
    * /contact/create
    */ 
   create: function (req,res) {
+    var viewDetails = {
+      fields: _.pairs(Contact.attributes),
+      capitalize: function(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+    };
+
     if (req.method =='POST') {
       Contact.create(req.body).done(function(err, contact) {
-        res.redirect('/');
-      });
-    } else {
-      res.view({
-        fields: _.pairs(Contact.attributes),
-        capitalize: function(str) {
-          return str.charAt(0).toUpperCase() + str.slice(1);
+        res.status(204);
+        viewDetails['contact'] = contact.toJSON();
+        console.log(req.accepts('text/html'));
+        if (req.accepts('text/html')) {
+          res.redirect('/');
+        } else {
+          res.view(viewDetails);
         }
       });
+    } else {
+      res.view(viewDetails);
     }
 
   },
@@ -40,9 +49,6 @@ module.exports = {
    * /contact/list
    */ 
   list: function (req,res) {
-
-    // This will render the view: 
-    // /Users/jamescarr/Projects/resthooks-project/views/contact/list.ejs
     Contact.find().done(function(err, contacts) {
       res.view({contacts: contacts});
     });
@@ -53,9 +59,6 @@ module.exports = {
    * /contact/destroy
    */ 
   destroy: function (req,res) {
-
-    // This will render the view: 
-    // /Users/jamescarr/Projects/resthooks-project/views/contact/destroy.ejs
     res.view();
 
   },
@@ -65,11 +68,9 @@ module.exports = {
    * /contact/edit
    */ 
   edit: function (req,res) {
-
-    // This will render the view: 
-    // /Users/jamescarr/Projects/resthooks-project/views/contact/edit.ejs
     res.view();
 
   }
 
 };
+
