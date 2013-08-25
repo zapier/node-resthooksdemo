@@ -1,6 +1,6 @@
-# Node.js RESTHooks Demo with Sails
+# Node.js RESTHooks Demo
 This is a simple proof of concept that demonstrates how to setup rest
-hook in a basic Sails CRUD application. While the concept and examples
+hook in a basic <a href="http://sailsjs.org/">sails.js</a> application. While the concept and examples
 are simple the same basic concept should be applicable with the
 complexities of your application domain. 
 
@@ -117,4 +117,19 @@ client application.
 ## How We Do It
 
 ## What You Should Do In Production
+Obviously we cut a lot of corners in this demo to be very brief and to
+the point. For a production quality application it is recommended that
+you try to implement the following pieces.
 
+- Use proper validation and application security techniques
+- Implement a form of authentication (whether OAuth2, basic auth or API
+keys) to secure services exposed via REST hooks.
+- Limit the scope of what objects external services can subscribe to
+that are within their domain. 
+
+Also, while simply pushing notifications out asynchronously as we do in
+these examples, for a site with a heavy volume of traffic you may want
+to consider pushing model updates into a queue to a separate application
+to send the notifications out to subscribers. <a href="https://github.com/postwait/node-amqp">AMQP</a>, <a
+href="https://github.com/pietern/hiredis-node">Redis</a> or even the
+queue-less <a href="https://github.com/JustinTulloss/zeromq.node">ZeroMQ</a> are all valid options here. 
