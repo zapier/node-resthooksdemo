@@ -26,8 +26,8 @@ npm start
 Visit http://localhost:1337 in a browser to view the web interface. You
 can also visit the RESTful API urls at:
 
-http://localhost:1337/contact
-http://localhost:1337/subscription
+- http://localhost:1337/contact
+- http://localhost:1337/subscription
 
 Now from another terminal let's start up the client application that
 pretends to be an app that is extending our application via REST Hooks. 
