@@ -117,6 +117,10 @@ client application.
 
 
 ## How We Do It
+Sails provides the capability to hook into create, update and delete commands 
+so we simly write a [decorator](https://github.com/zapier/node-resthooksdemo/blob/master/api/services/SubscriptionNotifier.js) 
+that can hook into these dynamically and publish to resthook subscriptions whenever 
+those actions occur on a model.
 
 ## What You Should Do In Production
 Obviously we cut a lot of corners in this demo to be very brief and to
