@@ -10,7 +10,7 @@
         "ejs": "0.8.4",
         "optimist": "0.3.4",
         "underscore": "1.5.1",
-        "request": "2.27.1",
+        "request": "2.27.0",
         "express": "3.3.5"
     },
     "scripts": {
